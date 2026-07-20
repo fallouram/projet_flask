@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<h1>Connexion</h1>
+
+<form method="POST" class="form-card">
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.identifiant.label }}
+        {{ form.identifiant() }}
+        {% for error in form.identifiant.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.password.label }}
+        {{ form.password() }}
+        {% for error in form.password.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    {{ form.submit() }}
+</form>
+
+<p>Pas encore de compte ? <a href="{{ url_for('auth.register') }}">Créer un compte</a></p>
+{% endblock %}

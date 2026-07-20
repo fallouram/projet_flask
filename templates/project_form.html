@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ titre_page }}{% endblock %}
+{% block content %}
+<h1>{{ titre_page }}</h1>
+
+<form method="POST" class="form-card">
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.title.label }}
+        {{ form.title() }}
+        {% for error in form.title.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.domain.label }}
+        {{ form.domain() }}
+        {% for error in form.domain.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+    {{ form.description.label }}
+    {{ form.description() }}
+        {% for error in form.description.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form.status.label }}
+{{ form.status() }}
+        {% for error in form.status.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+</div>
+
+    {{ form.submit() }}
+    <a href="{{ url_for('projects.dashboard') }}">Annuler</a>
+</form>
+{% endblock %}

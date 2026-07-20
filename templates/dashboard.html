@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Tableau de bord{% endblock %}
+{% block content %}
+<h1>Tableau de bord de {{ current_user.username }}</h1>
+
+<section>
+    <p>Total de projets : <strong>{{ total }}</strong></p>
+    <ul>
+        {% for statut, nb in counts.items() %}
+            <li>{{ statut }} : {{ nb }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<a href="{{ url_for('projects.create') }}">+ Nouveau projet</a>
+
+{% if projets %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Domaine</th>
+            <th>Statut</th>
+            <th>Créé le</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projet in projets %}
+        <tr>
+            <td>{{ projet.title }}</td>
+            <td>{{ projet.domain }}</td>
+            <td>{{ projet.status.value }}</td>
+            <td>{{ projet.created_at.strftime('%d/%m/%Y') }}</td>
+            <td>
+                <a href="{{ url_for('projects.modifier', project_id=projet.id) }}">Modifier</a>
+                <form method="POST" action="{{ url_for('projects.delete', project_id=projet.id) }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Supprimer ce projet ?');">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun projet pour l'instant.</p>
+{% endif %}
+{% endblock %}
