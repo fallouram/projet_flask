@@ -1,4 +1,0 @@
-{
-    "SQLALCHEMY_DATABASE_URI": "sqlite:///projecttrack.db",
-    "SECRET_KEY": "cle-secrete-a-changer-plus-tard"
-}
